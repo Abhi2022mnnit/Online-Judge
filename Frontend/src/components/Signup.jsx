@@ -1,46 +1,43 @@
-import React, {useState} from 'react';
-import axios from 'axios';
+import React, { useEffect, useState } from 'react';
+import apiConnect from '../apiServices/apiConnect';
+import { useNavigate } from 'react-router-dom';
+import {addUser} from '../globalStorage/SignupSlice'
+import {useDispatch, useSelector} from 'react-redux'
+import { sendOtp } from './sendOtp';
 
 
 function Signup() {
 
-  const [userName, setuserName] = useState("");
-  const [firstName, setfirstName] = useState("");
-  const [lastName, setlastName] = useState("");
-  const [email, setemail] = useState("");
-  const [accountType, setaccountType] = useState("");
-  const [password, setpassword] = useState("");
-  const [confirmPassword, setconfirmPassword] = useState("");
+  const dispatch = useDispatch();
 
-  const handleClick = (e) => {
-      e.preventDefault();
-      console.log("Handle Click");
-      console.log(userName);
-      console.log(firstName);
-      console.log(lastName);
-      console.log(email);
-      console.log(accountType);
-      console.log(password);
-      console.log(confirmPassword);
+  const [userData, setUserData] = useState({
+    userName: '',
+    firstName: '',
+    lastName: '',
+    emailAddress: '',
+    accountType: '',
+    password: '',
+    confirmPassword: ''
+  })
 
-      const SignupDetails = {
-        userName : userName,
-        firstName : firstName,
-        lastName : lastName,
-        email : email,
-        accountType : accountType,
-        password : password,
-        confirmPassword : confirmPassword
-      }
-
-      console.log("SIGN " + SignupDetails);
-
-      // axios.post(`http://localhost:3000/signup`, SignupDetails)
-      // .then(res => {
-      //   console.log(res);
-      // })
+  const textboxchange = (e) => {
+    setUserData((prev) => ({
+      ...prev,
+      [e.target.name]: e.target.value,
+    })
+    )
   }
 
+  const otpNavigate = useNavigate();
+
+  const handleClick = (e) => {
+    e.preventDefault();                   // To prevent submit the form directly by default
+    console.log("Handle Click");
+
+    dispatch(addUser(userData));
+
+    sendOtp(userData.emailAddress, otpNavigate);
+  }
 
   return (
     <>
@@ -48,31 +45,31 @@ function Signup() {
       <br /><br />
       <form>
         <label> Username </label>
-        <input type='text' placeholder='Username' value={userName} onChange={(e) => {setuserName(e.target.value)}}/>
+        <input type='text' placeholder='Username' name='userName' value={userData.userName} onChange={textboxchange} />
         <br /><br />
 
         <label> firstName </label>
-        <input type='text' placeholder='Username' value={firstName} onChange={(e) => {setfirstName(e.target.value)}}/>
+        <input type='text' placeholder='Username' name='firstName' value={userData.firstName} onChange={textboxchange} />
         <br /><br />
 
         <label> lastName </label>
-        <input type='text' placeholder='Username' value={lastName} onChange={(e) => {setlastName(e.target.value)}}/>
+        <input type='text' placeholder='Username' name='lastName' value={userData.lastName} onChange={textboxchange} />
         <br /><br />
 
         <label> Email </label>
-        <input type='text' placeholder='Username' value={email} onChange={(e) => {setemail(e.target.value)}}/>
+        <input type='text' placeholder='Username' name='emailAddress' value={userData.emailAddress} onChange={textboxchange} />
         <br /><br />
 
         <label> Account Type </label>
-        <input type='text' placeholder='Username' value={accountType} onChange={(e) => {setaccountType(e.target.value)}}/>
+        <input type='text' placeholder='Username' name='accountType' value={userData.accountType} onChange={textboxchange} />
         <br /><br />
 
         <label> Password </label>
-        <input type='text' placeholder='Password' value={password} onChange={(e) => {setpassword(e.target.value)}}/>
+        <input type='text' placeholder='Password' name='password' value={userData.password} onChange={textboxchange} />
         <br /><br />
 
         <label> confirmPassword </label>
-        <input type='text' placeholder='Password' value={confirmPassword} onChange={(e) => {setconfirmPassword(e.target.value)}}/>
+        <input type='text' placeholder='Password' name='confirmPassword' value={userData.confirmPassword} onChange={textboxchange} />
         <br /><br />
 
         <button type='submit' onClick={handleClick}> Submit </button>

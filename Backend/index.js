@@ -1,16 +1,22 @@
 const express = require('express')
-const app = express()
-
-app.use(express.json());
+const authRoutes = require('./routes/Auth');
+const dbConnect = require('./config/database');
+const cors = require('cors');
 const cookieParser = require('cookie-parser');
+
+// --------------------------- Middlewares ------------------------------------------
+const app = express()
+app.use(cors());
+app.use(express.json());
+app.use(express.urlencoded({extended : true}));
 app.use(cookieParser());
 
-app.listen(3000,() => {
-    console.log('listen on 3000');
-})
+app.use('/api/phase1/auth', authRoutes);
 
-const dbConnect = require('./config/database');
+//------------------------------------------------------------------------------------
+
 dbConnect();
 
-const authRoutes = require('./routes/Auth');
-app.use('/api/phase1/auth', authRoutes);
+app.listen(4000,() => {
+    console.log('listen on 4000');
+})

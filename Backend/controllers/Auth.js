@@ -69,17 +69,20 @@ exports.signUp = async (req, res) => {
 
     try {
         const {
+            userName,
             firstName,
             lastName,
             emailAddress,
             accountType,
             password,
             confirmPassword,
-            otp,
+            otp
         } = req.body;
 
+        // console.log(req.body);
+
         // every detail given ?
-        if (!firstName || !lastName || !emailAddress || !otp || !password || !confirmPassword || !accountType) {
+        if (!userName || !firstName || !lastName || !emailAddress  || !password || !confirmPassword || !accountType || !otp) {
             return res.status(404).json({
                 success: false,
                 message: 'enter your details',
@@ -122,9 +125,10 @@ exports.signUp = async (req, res) => {
         // password hashing using bcrypt
 
         const hashedPassword = await bcrypt.hash(password, 10);
-
+        console.log('hh');
         // create the user
         const userdetails = await User.create({
+            userName,
             firstName,
             lastName,
             emailAddress,

@@ -1,19 +1,48 @@
 import React from 'react'
-import {useState, useRef} from 'react'
+import { useState } from 'react'
+import apiConnect from '../apiServices/apiConnect'
+import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import { setUser, setToken } from '../globalStorage/ProfileSlice'
+
 
 
 function Login() {
 
-  const [userName, setUserName] = useState();
-  const [password, setPassword] = useState();
+  const [userName, setUserName] = useState('');
+  const [emailAddress, setemailAddress] = useState('');
+  const [password, setPassword] = useState('');
 
-  const userNameRef = useRef();
-  const passwordRef = useRef();
+  const dispatch = useDispatch();
+  const homeNavigate = useNavigate();
 
-  function handleClick(e){
-    e.preventDefaultValue;
+  async function handleClick(e) {
+    e.preventDefault();
     console.log("Submitting!!!");
-    console.log(userNameRef.current);
+
+
+    try {
+      const promise = await apiConnect("POST", "http://localhost:4000/api/phase1/auth/signin", { emailAddress, password });
+
+      if (!promise.data.success) {
+        throw new error("Error in Login API ");
+      }
+
+      const userData = promise.data.existUser;
+      const userToken = promise.data.token;
+
+      localStorage.setItem("User", JSON.stringify(userData))
+      localStorage.setItem("Token", JSON.stringify(userToken))
+
+      dispatch(setUser(userData));
+      dispatch(setToken(userToken));
+
+      homeNavigate('/');
+
+    } catch (error) {
+      console.log(error.message);
+    }
+
   }
 
   return (
@@ -22,10 +51,25 @@ function Login() {
       <br /><br />
       <form>
         <label> Username </label>
-        <input type='text' placeholder='Username' value={userNameRef}/>
+        <input type='text'
+          placeholder='Username'
+          value={userName}
+          onChange={(e) => setUserName(e.target.value)}
+        />
+        <br /><br />
+        <label> emailAddress </label>
+        <input type='text'
+          placeholder='emailAddress'
+          value={emailAddress}
+          onChange={(e) => setemailAddress(e.target.value)}
+        />
         <br /><br />
         <label> Password </label>
-        <input type='text' placeholder='Password' value={passwordRef}/>
+        <input type='password'
+          placeholder='Password'
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+        />
         <br /><br />
         <button type='submit' onClick={handleClick}> Submit </button>
       </form>
