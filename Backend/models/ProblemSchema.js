@@ -1,36 +1,53 @@
 const mongoose = require("mongoose");
 
-const ProblemsSchema = new mongoose.Schema({
+const ProblemSchema = new mongoose.Schema({
 
     problemName : {
         type : String,
-        required: true,
+        required : true
     },
 
-    problemStatement : {
+    difficulty : {
         type : String,
-        required : true,
+        required : true
+    },
+
+    problemDescription : {
+        type : String,
+        required : true
     },
 
     constraints : {
         type : [String],
-        required : true,
-    }, 
+        required : true
+    },
 
-    testCases : [{
-        type : mongoose.Schema.Types.ObjectId,
-        ref : "TestCases",
-    }],
-    
-    solutionsSubmittedByCoder : [{
-        type : mongoose.Schema.Types.ObjectId,
-        ref : "SolutionsSubmittedByUser",
-    }],
+    inputDescription : {
+        type : String,
+        required : true
+    },
 
-    problemCreater : {
-        type : mongoose.Schema.Types.ObjectId,
-        ref : "User",
+    outputDescription : {
+        type : String,
+        required : true
+    },
+
+    // sampleInput : [{
+    //     type : mongoose.Schema.Types.ObjectId,
+    //     ref : "TestCases"
+    // }],
+
+    // sampleOutput : [{
+    //     type : "mongoose.Schema.Type.ObjectId",
+    //     ref : "TestCases"
+    // }],
+
+    code : {
+        type : String,
+        required : true
     }
-});
 
-module.exports = mongoose.model("Problems",ProblemsSchema);
+})
+
+
+module.exports = mongoose.model("ProblemList", ProblemSchema);
