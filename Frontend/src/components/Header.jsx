@@ -5,7 +5,10 @@ import { useSelector } from 'react-redux'
 function Header() {
 
     const token = useSelector((state) => state.myToken);
+    const user = useSelector((state) => state.myUser);
     console.log(token);
+    // console.log(user);
+    console.log(user.image)
 
     return (
 
@@ -15,7 +18,7 @@ function Header() {
 
                     <p className="font-Ubuntu font-bold text-red-500 text-2xl">Online <span className="font-Ubuntu font-bold text-zinc-600">Judge</span></p>
 
-                    {
+                    {token === null &&
                         (<div className="flex items-center lg:order-2">
                             <Link
                                 to="/login"
@@ -31,59 +34,76 @@ function Header() {
                             </Link>
                         </div>)
                     }
-                    <div
-                        className="hidden justify-between items-center w-full lg:flex lg:w-auto lg:order-1"
-                        id="mobile-menu-2"
-                    >
-                        {/* <ul className="flex flex-col mt-4 font-medium lg:flex-row lg:space-x-8 lg:mt-0">
-                            <li>
-                                <NavLink
-                                    to='/'
-                                    className={({ isActive }) =>
-                                        `block py-2 pr-4 pl-3 duration-200 ${isActive ? "text-orange-600" : "text-grey-600"} border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 hover:text-orange-700 lg:p-0`
-                                    }
-                                >
-                                    Home
-                                </NavLink>
-                            </li>
 
-                            <li>
-                                <NavLink
-                                    to='/'
-                                    className={({ isActive }) =>
-                                        `block py-2 pr-4 pl-3 duration-200 ${isActive ? "text-orange-600" : "text-grey-600"} border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 hover:text-orange-700 lg:p-0`
-                                    }
-                                >
-                                    About
-                                </NavLink>
-                            </li>
+                    {token !== null &&
 
-                            <li>
-                                <NavLink
-                                    to='/'
-                                    className={({ isActive }) =>
-                                        `block py-2 pr-4 pl-3 duration-200 ${isActive ? "text-orange-600" : "text-grey-600"} border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 hover:text-orange-700 lg:p-0`
-                                    }
-                                >
-                                    Contact Us
-                                </NavLink>
-                            </li>
-                        </ul> */}
-                    </div>
+                        (<div>
+                            <Link
+                                to="/addProblem"
+                                className="bg-red-600 text-white m-2 rounded-lg p-2 mx-4 hover:bg-red-700"
+                            >
+                                Add Problem
+                            </Link>
+                            <Link
+                                to="/problemList"
+                                className="bg-gray-600 text-white m-2 rounded-lg p-2 mx-4 hover:bg-gray-700"
+                            >
+                                Practice
+                            </Link>
+                            <button type="button">
+                                <img src={user.image} width={35} height={35} className='rounded-full item-center' />
+                            </button>
+                        </div>
+                        )
+                    }
+
                 </div>
             </nav>
         </header>
-
-        // <header>
-        //     <nav className="bg-white text-text-grey-600">
-        //         <Link to='/'>Home</Link>
-        //         <Link to='/login'>Login</Link>
-        //         <Link to='/signup'>Signup</Link>
-        //     </nav>
-        // </header>
     )
 }
 
 export default Header;
 
 
+
+{/* <div
+    className="hidden justify-between items-center w-full lg:flex lg:w-auto lg:order-1"
+    id="mobile-menu-2"
+>
+    
+        <ul className="flex flex-col mt-4 font-medium lg:flex-row lg:space-x-8 lg:mt-0">
+            <li>
+                <NavLink
+                    to='/'
+                    className={({ isActive }) =>
+                        `block py-2 pr-4 pl-3 duration-200 ${isActive ? "text-orange-600" : "text-grey-600"} border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 hover:text-orange-700 lg:p-0`
+                    }
+                >
+                    Home
+                </NavLink>
+            </li>
+
+            <li>
+                <NavLink
+                    to='/'
+                    className={({ isActive }) =>
+                        `block py-2 pr-4 pl-3 duration-200 ${isActive ? "text-orange-600" : "text-grey-600"} border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 hover:text-orange-700 lg:p-0`
+                    }
+                >
+                    About
+                </NavLink>
+            </li>
+
+            <li>
+                <NavLink
+                    to='/'
+                    className={({ isActive }) =>
+                        `block py-2 pr-4 pl-3 duration-200 ${isActive ? "text-orange-600" : "text-grey-600"} border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 hover:text-orange-700 lg:p-0`
+                    }
+                >
+                    Contact Us
+                </NavLink>
+            </li>
+        </ul>
+</div> */}

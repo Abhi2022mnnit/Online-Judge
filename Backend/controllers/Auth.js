@@ -181,8 +181,8 @@ exports.signIn = async (req, res) => {
                 accountType: existUser.accountType
             }
 
-            const token = jwt.sign(payload, process.env.JWT_SECRET, {
-                expiresIn: "24h",
+            var token = jwt.sign(payload, process.env.JWT_SECRET, {
+                expiresIn: 5,
             });
 
             existUser.password = undefined;

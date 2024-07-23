@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import apiConnect from '../apiServices/apiConnect';
 import { useNavigate } from 'react-router-dom';
-import {addUser} from '../globalStorage/SignupSlice'
-import {useDispatch, useSelector} from 'react-redux'
+import { addUser } from '../globalStorage/SignupSlice'
+import { useDispatch, useSelector } from 'react-redux'
 import { sendOtp } from './sendOtp';
 
 
@@ -72,8 +72,8 @@ function Signup() {
         <input type='text' placeholder='Password' name='confirmPassword' value={userData.confirmPassword} onChange={textboxchange} />
         <br /><br />
 
-        <button type='submit' onClick={handleClick}> Submit </button>
       </form>
+      <button type='submit' onClick={handleClick}> Submit </button>
     </>
   )
 }

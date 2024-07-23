@@ -3,7 +3,7 @@ import { useState } from 'react'
 import apiConnect from '../apiServices/apiConnect'
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { setUser, setToken } from '../globalStorage/ProfileSlice'
+import { setUser, setToken } from '../globalStorage/SignupSlice'
 
 
 

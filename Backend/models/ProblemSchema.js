@@ -32,15 +32,10 @@ const ProblemSchema = new mongoose.Schema({
         required : true
     },
 
-    // sampleInput : [{
-    //     type : mongoose.Schema.Types.ObjectId,
-    //     ref : "TestCases"
-    // }],
-
-    // sampleOutput : [{
-    //     type : "mongoose.Schema.Type.ObjectId",
-    //     ref : "TestCases"
-    // }],
+    testCases : [{
+        type : mongoose.Schema.Types.ObjectId,
+        ref : "TestCases"
+    }],
 
     code : {
         type : String,

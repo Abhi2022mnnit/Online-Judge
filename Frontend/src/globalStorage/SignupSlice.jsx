@@ -2,6 +2,10 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
     theUser: {},
+    myToken: localStorage.getItem("Token") ? JSON.parse(localStorage.getItem("Token")) : "",
+    myUser: localStorage.getItem("User") ? JSON.parse(localStorage.getItem("User")) : {},
+    step : 1,
+    problem : {}
 }
 
 export const SignupSlice = createSlice({
@@ -10,9 +14,21 @@ export const SignupSlice = createSlice({
     reducers: {        // Data must be in key-function pair
         addUser: (state, action) => {
             state.theUser = action.payload
+        },
+        setUser: (state, action) => {
+            state.myUser = action.payload;
+        },
+        setToken: (state, action) => {
+            state.myToken = action.payload;
+        },
+        setStep : (state, action) => {
+            state.step = action.payload;
+        },
+        setProblem : (state, action) => {
+            state.problem = action.payload;
         }
     }
 })
 
-export const { addUser } = SignupSlice.actions;
+export const { addUser, setUser, setToken, setStep, setProblem } = SignupSlice.actions;
 export default SignupSlice.reducer;
