@@ -1,14 +1,20 @@
-import { useState } from "react";
-
+import { useState, useEffect } from "react";
+import {useDispatch, useSelector} from 'react-redux';
+import {setStep} from '../globalStorage/SignupSlice'
+import { NotifyContainer, notifySuccess } from './notify';
+import apiConnect from '../apiServices/apiConnect';
+import {useNavigate} from 'react-router-dom';
 
 function AddTestCases() {
 
-    const [allTestCases, setAllTestCases] = useState([]);
+    const dispatch = useDispatch();
 
     const [testCase, setTestCase] = useState({
         input: '',
         output: ''
     });
+
+    const problem = useSelector((state) => state.problem);
 
     const addTestCase = (e) => {
         setTestCase((prev) => ({                        // setCase((prev) => ({}))
@@ -16,16 +22,37 @@ function AddTestCases() {
             [e.target.name]: e.target.value,
         })
         )
+
     }
 
-    const handleAddTestCase = (e) => {
-        allTestCases.push(testCase);
+    const handleAddTestCase = async () => {
         console.log("TestCase Added");
+        notifySuccess("TestCase Added");
+        
+        // try{
+        //     await apiConnect("POST", "http://localhost:4000/api/phase1/auth/addTestCase", {...testCase, problemId: problem._id});
+        // }catch(error){
+        //     console.log(error.message);
+        // }
     }
+
+    const homeNavigate = useNavigate();
 
     const submitTestCases = () => {
-        console.log(allTestCases);
+        dispatch(setStep(1));
+        // homeNavigate('/dashboard/profile');
     }
+
+    const handlePrev = () => {
+        dispatch(setStep(1));
+    }
+
+    useEffect(() => {
+        const notify = () => {
+            notifySuccess("Problem Added");
+        }
+        notify();
+    },[])
 
     return (
         <div>
@@ -54,9 +81,15 @@ function AddTestCases() {
                     className="bg-red-600 text-white m-2 p-2"
                 >Add TestCase</button>
             </div>
+            <div className="flex flex-row gap-96 ml-64 mt-4">
+            <button type="submit" onClick={handlePrev}
+                className="bg-gray-500 text-white m-2 p-2 bottom-24 hover:bg-gray-700 rounded-lg"
+            >Prev</button>
             <button type="submit" onClick={submitTestCases}
-                className="bg-red-600 text-white m-2 p-2 fixed bottom-24"
+                className="bg-red-600 text-white m-2 p-2 bottom-24 hover:bg-red-700 ronded-lg"
             >Submit</button>
+            </div>
+            <NotifyContainer />
         </div>
     )
 }

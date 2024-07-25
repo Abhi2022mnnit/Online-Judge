@@ -37,7 +37,7 @@ function Login() {
       dispatch(setUser(userData));
       dispatch(setToken(userToken));
 
-      homeNavigate('/');
+      homeNavigate('/dashboard/profile');
 
     } catch (error) {
       console.log(error.message);

@@ -1,5 +1,5 @@
 import React from "react";
-import { Link, NavLink } from 'react-router-dom'
+import { Link, NavLink, useNavigate } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 
 function Header() {
@@ -9,6 +9,11 @@ function Header() {
     console.log(token);
     // console.log(user);
     console.log(user.image)
+    const homeNavigate = useNavigate();
+
+    const gotoProfile = () => {
+        homeNavigate('/dashboard/profile');
+    }
 
     return (
 
@@ -39,10 +44,10 @@ function Header() {
 
                         (<div>
                             <Link
-                                to="/addProblem"
+                                to="/createProblem"
                                 className="bg-red-600 text-white m-2 rounded-lg p-2 mx-4 hover:bg-red-700"
                             >
-                                Add Problem
+                                Create Problem
                             </Link>
                             <Link
                                 to="/problemList"
@@ -50,8 +55,8 @@ function Header() {
                             >
                                 Practice
                             </Link>
-                            <button type="button">
-                                <img src={user.image} width={35} height={35} className='rounded-full item-center' />
+                            <button type="button" onClick={gotoProfile}>
+                                <img src={user.image} width={35} height={35} className='rounded-full items-center' />
                             </button>
                         </div>
                         )

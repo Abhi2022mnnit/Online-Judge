@@ -182,7 +182,7 @@ exports.signIn = async (req, res) => {
             }
 
             var token = jwt.sign(payload, process.env.JWT_SECRET, {
-                expiresIn: 5,
+                expiresIn: "24h",
             });
 
             existUser.password = undefined;

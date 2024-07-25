@@ -30,11 +30,13 @@ const ProblemSchema = new mongoose.Schema({
     outputDescription : {
         type : String,
         required : true
-    },
+    }, 
 
+
+    
     testCases : [{
         type : mongoose.Schema.Types.ObjectId,
-        ref : "TestCases"
+        ref : "Testcases"
     }],
 
     code : {

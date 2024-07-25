@@ -173,7 +173,7 @@ cout<<a<<b;
                 </div>
 
                 {
-                    // (output &&
+                    (output &&
                     <div className="flex flex-col gap-5 w-[50%]">
                         <label>Custom TestCases</label>
                         <textarea
@@ -185,7 +185,7 @@ cout<<a<<b;
                             disabled={true}
                         />
                     </div>
-                    // )
+                    )
                 }
 
             </div>

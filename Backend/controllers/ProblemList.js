@@ -1,5 +1,5 @@
 const problemList = require('../models/ProblemSchema');
-
+const User = require('../models/UserSchema');
 
 exports.problemList = async(req, res) => {
     try{
@@ -8,7 +8,7 @@ exports.problemList = async(req, res) => {
         if(!allProblems){
             return res.status(404).json({"success" : false, message : "Problems Not Fetched."})
         }
-        return res.json({"success" : true, message : "fetched all problem successfully", allProblems});
+        return res.json({"success" : true, message : "fetched all problemsuccessfully", allProblems});
     }catch(error){
         return res.status(500).json({"success" : false, message : `Error in Fetching Problems : ${error.message}`});
     }
@@ -36,6 +36,8 @@ exports.getProblemById = async(req,res) => {
 exports.addProblem = async(req,res) => {
     try{
         const {problemName, difficulty, problemDescription, constraints, inputDescription, outputDescription, code} = req.body;
+        const coderId = req.user.id;
+
         if(!problemName || !difficulty || !problemDescription || !constraints || !inputDescription || !outputDescription || !code){
             console.log(problemName, difficulty, problemDescription, constraints, inputDescription, outputDescription, sampleOutput, sampleOutput, code);
             return res.status(404).json({"success" : false, message : "Cannot fetch data from body"})
@@ -50,6 +52,19 @@ exports.addProblem = async(req,res) => {
             outputDescription,
             code
         })
+
+        const userDetails = await User.findByIdAndUpdate({_id : coderId}, 
+            {
+                $push : {
+                    problemsCreated : problem._id,
+                }
+            },
+            {
+                new : true
+            }
+        );
+
+        console.log(userDetails);
 
         // const userDet = await Us.findByIdandUpdate(
         //                         {_id : coderId},
