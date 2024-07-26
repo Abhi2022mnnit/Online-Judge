@@ -17,8 +17,8 @@ function Header() {
 
     return (
 
-        <header className="shadow sticky w-full z-50 top-0">
-            <nav className="bg-white border-gray-200 px-4 lg:px-6 py-2.5 w-full">
+        <header className="shadow-sm shadow-red-500 w-full">
+            <nav className="bg-white border-gray-200 px-4 lg:px-6 py-2 w-full">
                 <div className="flex flex-wrap justify-between items-center mx-auto max-w-screen-xl">
 
                     <p className="font-Ubuntu font-bold text-red-500 text-2xl">Online <span className="font-Ubuntu font-bold text-zinc-600">Judge</span></p>
@@ -27,7 +27,7 @@ function Header() {
                         (<div className="flex items-center lg:order-2">
                             <Link
                                 to="/login"
-                                className="text-gray-800 hover:bg-gray-50 focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-4 lg:px-5 py-2 lg:py-2.5 mr-2 focus:outline-none"
+                                className="text-gray-800 hover:bg-gray-50 focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-4 lg:px-5 py-2 lg:py-2.5 mr-2 focus:outline-none bg-gray-200"
                             >
                                 Log in
                             </Link>
@@ -42,10 +42,10 @@ function Header() {
 
                     {token !== null &&
 
-                        (<div>
+                        (<div className="flex flex-row items-center gap-2">
                             <Link
                                 to="/createProblem"
-                                className="bg-red-600 text-white m-2 rounded-lg p-2 mx-4 hover:bg-red-700"
+                                className="bg-red-600 text-white  m-2 rounded-lg p-2 mx-4 hover:bg-red-700"
                             >
                                 Create Problem
                             </Link>

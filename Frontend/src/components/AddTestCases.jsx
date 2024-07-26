@@ -29,18 +29,18 @@ function AddTestCases() {
         console.log("TestCase Added");
         notifySuccess("TestCase Added");
         
-        // try{
-        //     await apiConnect("POST", "http://localhost:4000/api/phase1/auth/addTestCase", {...testCase, problemId: problem._id});
-        // }catch(error){
-        //     console.log(error.message);
-        // }
+        try{
+            await apiConnect("POST", "http://localhost:4000/api/phase1/auth/addTestCase", {...testCase, problemId: problem._id});
+        }catch(error){
+            console.log(error.message);
+        }
     }
 
     const homeNavigate = useNavigate();
 
     const submitTestCases = () => {
         dispatch(setStep(1));
-        // homeNavigate('/dashboard/profile');
+        homeNavigate('/dashboard/profile');
     }
 
     const handlePrev = () => {

@@ -6,7 +6,7 @@ const router = express.Router();
 
 const {sendOtp,signUp,signIn} = require('../controllers/Auth');
 const {problemList, addProblem, getProblemById} = require('../controllers/ProblemList');
-const {runCode} = require('../controllers/RunCode');
+const {runCode, submitCode} = require('../controllers/RunCode');
 const {addTestCase} = require('../controllers/AddTestCases');
 
 // middlewares
@@ -19,8 +19,9 @@ router.post('/signin',signIn);
 router.get('/problemList', problemList);
 router.post('/addProblem', auth, isAdmin, addProblem);
 router.post('/getProblemById', getProblemById);
-router.post('/run', runCode);
 router.post('/addTestCase', addTestCase);
+router.post('/run', runCode);
+router.post('/submitCode', submitCode);
 
 
 
