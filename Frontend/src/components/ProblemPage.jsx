@@ -7,12 +7,15 @@ import 'prismjs/components/prism-clike';
 import 'prismjs/components/prism-javascript';
 import 'prismjs/themes/prism.css';
 import { NotifyContainer, notifySuccess, notifyError } from './notify';
+import {useSelector} from 'react-redux';
 
 
 function ProblemPage() {
 
     const { problemId } = useParams();
     // console.log(problemId);
+
+    const user = useSelector((state) => state.myUser);
 
     const [problem, setProblem] = useState();
     const [allInputs, setAllInputs] = useState();
@@ -66,12 +69,21 @@ cout<<a<<b;
     const handleRun = async () => {
         const payload = {
             lan: 'cpp',
-            code,
+            code : code,
             inputs: allInputs,
             problemId: problemId
         };
 
         console.log(payload);
+
+        if(!payload.code){
+            console.log("Please Enter Code");
+            return;
+        }
+        if(!payload.inputs){
+            console.log("Please Enter Inputs");
+            return;
+        }
 
         try {
             const { data } = await apiConnect("POST", 'http://localhost:4000/api/phase1/auth/run', payload);
@@ -88,9 +100,10 @@ cout<<a<<b;
         // console.log(lan);
         // console.log(code);
         // console.log(allInputs);
+        console.log(user._id);
 
         try {
-            const promise = await apiConnect("POST", 'http://localhost:4000/api/phase1/auth/submitCode', { lan: 'cpp', code, problemId: problemId });
+            const promise = await apiConnect("POST", 'http://localhost:4000/api/phase1/auth/submitCode', { lan: 'cpp', code, problemId: problemId, userId : user._id });
             if (promise.data.success) {
                 setverdictValue('Accepted');
                 notifySuccess("Accepted");

@@ -1,3 +1,4 @@
+const ProblemSchema = require('../models/ProblemSchema');
 const problemList = require('../models/ProblemSchema');
 const User = require('../models/UserSchema');
 
@@ -6,7 +7,7 @@ exports.problemList = async(req, res) => {
 
         const allProblems = await problemList.find({});
         if(!allProblems){
-            return res.status(404).json({"success" : false, message : "Problems Not Fetched."})
+            return res.status(200).json({"success" : false, message : "Problems Not Found at Server."})
         }
         return res.json({"success" : true, message : "fetched all problemsuccessfully", allProblems});
     }catch(error){
@@ -18,12 +19,12 @@ exports.problemList = async(req, res) => {
 exports.getProblemById = async(req,res) => {
     try{
         const {problemId} = req.body;
-
+        console.log(problemId);
         const getProblem = await problemList.findById(problemId);
         if(!getProblem){
             throw new Error("Unable to fetch problem by Id from database");
         }
-
+        // console.log(getProblem);
         return res.status(200).json({"success" : true, getProblem});
     }catch(error){
         return res.status(500).json({"success" : false, message : error.message});
@@ -81,3 +82,20 @@ exports.addProblem = async(req,res) => {
         return res.status(500).json({"success" : false, message : `Error in Fetching Problems : ${error.message}`});
     }
 }
+
+exports.getCreatedProblemById = async(req,res) => {
+    const {problemId} = req.body;
+    try{
+        const problemDetails = await ProblemSchema.findById({_id: problemId})
+            .populate("testCases").exec();
+        
+            if(!problemDetails){
+                throw new Error("Error in getting Created problem")
+            }
+            return res.status(200).json({"success" : true, problemDetails});
+    }catch(error){
+        return res.status(500).json({"success" : false, message : error.message});
+    }
+}
+
+

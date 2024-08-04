@@ -1,7 +1,8 @@
-const { generateCppFile } = require('./generateCppFile');
+const { generateCppFile, generateCppFileWithoutIp } = require('./generateCppFile');
 const { generateCodeFile } = require('./generateCodeFile');
 const { generateInputFile } = require('./generateInputFile');
 const problemSchema = require('../models/ProblemSchema');
+const userSchema = require('../models/UserSchema');
 
 exports.runCode = async (req, res) => {
     const { lan, code, inputs, problemId } = req.body;
@@ -13,18 +14,18 @@ exports.runCode = async (req, res) => {
 
     try {
         const inputFile = await generateInputFile(inputs);
-        
+
         const filePath = await generateCodeFile(lan, code);
         const output = await generateCppFile(filePath, inputFile);
 
-        const problem = await problemSchema.findById({_id : problemId}).populate("testCases").exec();
+        const problem = await problemSchema.findById({ _id: problemId }).populate("testCases").exec();
         const actualCode = problem.code;
 
         const filePath2 = await generateCodeFile(lan, actualCode);
         const output2 = await generateCppFile(filePath2, inputFile);
 
-        if(output !== output2){
-            return res.status(200).json({"success" : false, output, output2, Verdict : "Failed"});
+        if (output !== output2) {
+            return res.status(200).json({ "success": false, output, output2, Verdict: "Failed" });
         }
 
         // if (lan === "cpp") {
@@ -40,7 +41,7 @@ exports.runCode = async (req, res) => {
         //     var output = await generateJavaScriptFile(filePath, inputFile);
         // }
 
-        return res.status(200).json({ "success": true, output, output2, Verdict : "Accepted"});
+        return res.status(200).json({ "success": true, output, output2, Verdict: "Accepted" });
     } catch (error) {
         return res.status(500).json({ "success": false, message: "Error in /run : " + error.message })
     }
@@ -48,18 +49,18 @@ exports.runCode = async (req, res) => {
 }
 
 exports.submitCode = async (req, res) => {
-    const { lan, code, problemId } = req.body;
+    const { lan, code, problemId, userId } = req.body;
 
     // console.log(lan);
     // console.log(code);
-    // console.log(problemId);
+    // console.log(problemId); 
 
     try {
-        const problemDetails = await problemSchema.findById({ _id : problemId })
+        const problemDetails = await problemSchema.findById({ _id: problemId })
             .populate("testCases").exec();
 
         if (!problemDetails) {
-            return res.status(500).json({ "success": false, message : "Server Not found Problem Details in RunCode Page"});
+            return res.status(500).json({ "success": false, message: "Server Not found Problem Details in RunCode Page" });
         }
 
         const filePath = await generateCodeFile(lan, code);
@@ -75,14 +76,53 @@ exports.submitCode = async (req, res) => {
 
             if (output !== testCase.output) {
                 // console.log("O/p: Failed: " + output);
-                return res.status(200).json({"success" : false, output, testCase, Verdict : "Failed"});
+                return res.status(200).json({ "success": false, output, testCase, Verdict: "Failed" });
             }
         }
 
-        return res.status(200).json({ "success": true, Verdict : "Accepted" });
+        console.log("entry in User");
+        const user = await userSchema.findByIdAndUpdate({_id: userId},
+            {
+                $push : {
+                    problemsSolved : problemId,
+                }
+            },
+            {
+                new : true
+            }
+        );
+
+        return res.status(200).json({ "success": true, Verdict: "Accepted" });
 
     } catch (error) {
         return res.status(500).json({ "success": false, message: error.message });
     }
 
+}
+
+exports.runCodeByIDEWithoutIp = async (req, res) => {
+    const { lan, code } = req.body;
+
+    try {
+        const filePath = await generateCodeFile(lan, code);
+        const output = await generateCppFileWithoutIp(filePath);
+        return res.status(200).json({ "success": true, output});
+
+    } catch (error) {
+        return res.status(500).json({ "success": false, message: "Error in /run : " + error.message })
+    }
+}
+
+exports.runCodeByIDEWithIp = async (req, res) => {
+    const { lan, code, input } = req.body;
+
+    try {
+        const filePath = await generateCodeFile(lan, code);
+        const inputFile = await generateInputFile(input);
+        const output = await generateCppFile(filePath, inputFile);
+        return res.status(200).json({ "success": true, output});
+
+    } catch (error) {
+        return res.status(500).json({ "success": false, message: "Error in /run : " + error.message })
+    }
 }

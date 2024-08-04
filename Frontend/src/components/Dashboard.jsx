@@ -1,11 +1,13 @@
 import { Outlet, Link, useNavigate } from 'react-router-dom'
-import {addUser, setUser, setToken, setStep, setProblem } from '../globalStorage/SignupSlice'
-import { useDispatch } from 'react-redux';
+import { addUser, setUser, setToken, setStep, setProblem } from '../globalStorage/SignupSlice'
+import { useDispatch, useSelector } from 'react-redux';
 
 function Dashboard() {
 
     const dispatch = useDispatch();
     const loginNavigate = useNavigate();
+
+    const user = useSelector((state) => state.myUser);
 
     const handleLogOut = () => {
         localStorage.clear();
@@ -32,10 +34,13 @@ function Dashboard() {
                         >Problem Solved</li>
                     </Link>
 
-                    <Link to='/dashboard/problemCreated'>
-                        <li className='p-2 mb-4 border-b-2 border-gray-300 rounded-lg '
-                        >Problem Created</li>
-                    </Link>
+                    {user.accountType === "Admin" && (
+
+                        <Link to='/dashboard/problemCreated'>
+                            <li className='p-2 mb-4 border-b-2 border-gray-300 rounded-lg '
+                            >Problem Created</li>
+                        </Link>
+                    )}
 
                     <button type='submit' onClick={handleLogOut}
                         className='p-2 border-b-2 border-gray-300 rounded-lg hover:bg-gray-300'
@@ -43,7 +48,7 @@ function Dashboard() {
 
                 </ul>
             </div>
-            
+
             <div className='flex item-center justify-between border-2 border-gray-200 w-full'>
                 <Outlet />
             </div>

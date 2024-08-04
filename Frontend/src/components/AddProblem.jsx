@@ -4,7 +4,6 @@ import apiConnect from '../apiServices/apiConnect';
 import { NotifyContainer, notifySuccess } from './notify';
 import { useDispatch, useSelector } from 'react-redux';
 import { setStep, setProblem } from '../globalStorage/SignupSlice';
-import { Zoom } from 'react-toastify';
 
 
 function AddProblem() {
@@ -15,14 +14,14 @@ function AddProblem() {
         problemName: '',
         difficulty: '',
         problemDescription: '',
-        constraints: [],
+        constraints: [''],
         inputDescription: '',
         outputDescription: '',
         code: ''
     });
 
     const [problem2,setproblem2]=useState([]);
-    const [constraints, setConstraints] = useState('');
+    const [cons, setCons] = useState('');
 
     const textboxChange = (e) => {
         localStorage.removeItem("Problem");
@@ -34,8 +33,12 @@ function AddProblem() {
     }
 
     const addConstraints = (e) => {
-        problem.constraints.push(constraints);
-        console.log(problem.constraints);
+        console.log(cons);
+        console.log(typeof problem[0].constraints);
+        console.log(problem[0]);
+        // problem[0]?.constraints.push(cons);
+        // problem[0]?.constraints += cons;
+        // console.log(problem.constraints);
         notifySuccess('Constraint Added');      // toaster
     }
 
@@ -132,6 +135,7 @@ function AddProblem() {
         }
 
         localStorage.setItem("Problem", JSON.stringify(data));
+        dispatch(setProblem(data));
         dispatch(setStep(2));
     }
 
@@ -151,7 +155,7 @@ function AddProblem() {
                 <br /><br />
 
                 <label>Problem constraints</label>
-                <input type="text" className="inputTag" name='constraints' defaultValue={constraints} onChange={(e) => setConstraints(e.target.value)}></input>
+                <input type="text" className="inputTag" name='constraints' defaultValue={cons} onChange={(e) => setCons(e.target.value)}></input>
                 <button type="button" onClick={addConstraints}
                     className="bg-red-600 text-white m-2 rounded-lg p-2 mx-4 hover:bg-red-700">Add</button>
                 <br /><br />

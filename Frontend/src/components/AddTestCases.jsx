@@ -1,19 +1,22 @@
 import { useState, useEffect } from "react";
-import {useDispatch, useSelector} from 'react-redux';
-import {setStep} from '../globalStorage/SignupSlice'
-import { NotifyContainer, notifySuccess } from './notify';
+import { useDispatch, useSelector } from 'react-redux';
+import { setStep,setProblem } from '../globalStorage/SignupSlice'
+import { NotifyContainer, notifySuccess, notifyError } from './notify';
 import apiConnect from '../apiServices/apiConnect';
-import {useNavigate} from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 function AddTestCases() {
 
     const dispatch = useDispatch();
+    const token = useSelector((state) => state.myToken);
 
     const [testCase, setTestCase] = useState({
         input: '',
         output: ''
     });
 
+    const [allTestCases, setAllTestCases] = useState([]);
+    const [problemId, setProblemId] = useState();
     const problem = useSelector((state) => state.problem);
 
     const addTestCase = (e) => {
@@ -26,21 +29,55 @@ function AddTestCases() {
     }
 
     const handleAddTestCase = async () => {
+
+        allTestCases.push(testCase);
+
         console.log("TestCase Added");
+
         notifySuccess("TestCase Added");
-        
-        try{
-            await apiConnect("POST", "http://localhost:4000/api/phase1/auth/addTestCase", {...testCase, problemId: problem._id});
-        }catch(error){
-            console.log(error.message);
-        }
     }
 
     const homeNavigate = useNavigate();
 
-    const submitTestCases = () => {
+    const submitTestCases = async () => {
         dispatch(setStep(1));
+        try {
+            console.log(problem);
+            console.log(token);
+
+            const ob = {
+                ...problem,
+                token
+            }
+
+            const promise = await apiConnect("POST", "http://localhost:4000/api/phase1/auth/addProblem", ob);
+
+            if (!promise.data.success) {
+                throw new error("Error in sending Problem Api to server");
+            }
+
+            notifySuccess('Submitted');         //toaster
+            // promise.data.problem._id;
+            // console.log(promise.data.problem);
+            dispatch(setProblem(promise.data.problem));
+            setProblemId(promise.data.problem._id);
+            // dispatch(setStep(2));
+
+        } catch (error) {
+            console.log(error.message);
+        }
+
+        allTestCases.map(  async(element, index) => {
+            try {
+                await apiConnect("POST", "http://localhost:4000/api/phase1/auth/addTestCase", { ...element, problemId: problemId });
+            } catch (error) {
+                notifyError('Submitted Failed at TestCase: ' + index+1); 
+                console.log(error.message);
+            }
+        })
+
         homeNavigate('/dashboard/profile');
+        notifySuccess('Submitted');         //toaster
     }
 
     const handlePrev = () => {
@@ -52,7 +89,7 @@ function AddTestCases() {
             notifySuccess("Problem Added");
         }
         notify();
-    },[])
+    }, [])
 
     return (
         <div>
@@ -82,12 +119,12 @@ function AddTestCases() {
                 >Add TestCase</button>
             </div>
             <div className="flex flex-row gap-96 ml-64 mt-4">
-            <button type="submit" onClick={handlePrev}
-                className="bg-gray-500 text-white m-2 p-2 bottom-24 hover:bg-gray-700 rounded-lg"
-            >Prev</button>
-            <button type="submit" onClick={submitTestCases}
-                className="bg-red-600 text-white m-2 p-2 bottom-24 hover:bg-red-700 ronded-lg"
-            >Submit</button>
+                <button type="submit" onClick={handlePrev}
+                    className="bg-gray-500 text-white m-2 p-2 bottom-24 hover:bg-gray-700 rounded-lg"
+                >Prev</button>
+                <button type="submit" onClick={submitTestCases}
+                    className="bg-red-600 text-white m-2 p-2 bottom-24 hover:bg-red-700 ronded-lg"
+                >Submit</button>
             </div>
             <NotifyContainer />
         </div>

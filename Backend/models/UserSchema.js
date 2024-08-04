@@ -45,7 +45,7 @@ const UserSchema = new mongoose.Schema({
     }],
     problemsSolved : [{
         type: mongoose.Schema.Types.ObjectId,
-        ref : "Problems",
+        ref : "ProblemList",
     }],
     problemsAttempted : [{
         type: mongoose.Schema.Types.ObjectId,

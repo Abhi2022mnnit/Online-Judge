@@ -5,9 +5,11 @@ const router = express.Router();
 // controllers
 
 const {sendOtp,signUp,signIn} = require('../controllers/Auth');
-const {problemList, addProblem, getProblemById} = require('../controllers/ProblemList');
-const {runCode, submitCode} = require('../controllers/RunCode');
+const {problemList, addProblem, getProblemById, getCreatedProblemById} = require('../controllers/ProblemList');
+const {runCode, submitCode, runCodeByIDEWithoutIp, runCodeByIDEWithIp} = require('../controllers/RunCode');
 const {addTestCase} = require('../controllers/AddTestCases');
+const {getUserById} = require('../controllers/getUserById');
+
 
 // middlewares
 const {auth, isAdmin} = require('../middlewares/Auth');
@@ -21,8 +23,10 @@ router.post('/addProblem', auth, isAdmin, addProblem);
 router.post('/getProblemById', getProblemById);
 router.post('/addTestCase', addTestCase);
 router.post('/run', runCode);
+router.post('/runCodeByIDEWithoutIp', runCodeByIDEWithoutIp);
+router.post('/runCodeByIDEWithIp', runCodeByIDEWithIp);
 router.post('/submitCode', submitCode);
-
-
+router.post('/getCreatedProblemById', getCreatedProblemById);
+router.post('/getUserById', getUserById);
 
 module.exports = router;

@@ -1,6 +1,63 @@
-function ProblemSolvedByUser(){
-    return(
-        <h1>Problem Solved By User</h1>
+import { useSelector } from "react-redux";
+import apiConnect from "../apiServices/apiConnect";
+import { useEffect, useState } from 'react';
+import {Link} from 'react-router-dom';
+
+
+function ProblemSolvedByUser() {
+
+    const [user, setUser] = useState(null);
+    const myUser = useSelector((state) => state.myUser); 
+
+    useEffect(() => {
+        const fetchUser = async () => {
+            try {
+                const promise = await apiConnect("POST", "http://localhost:4000/api/phase1/auth/getUserById", {userId : myUser._id});
+                // console.log(promise.data.user);
+
+                if (!promise.data.success) {
+                    throw new Error("No User Found in database!!!");
+                }
+                setUser(promise.data.user);
+                console.log(user)
+            console.log(user.problemsSolved)
+
+            } catch (error) {
+                console.log("Error in fetching all Problems from server" + error.message);
+            }
+
+        }
+        fetchUser();
+
+    }, [])
+
+    return (
+        <div>
+            <table>
+                <thead>
+                    <tr>
+                        <td>S.No</td>
+                        <td>Name</td>
+                        <td>Difficulty</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    {
+                        user.problemsSolved && user.problemsSolved.map((element, index) => {
+                            return (
+                                <Link to={`/problems/problem/${element._id}`} >
+                                    <tr className='border-t-2 p-2 flex flex-row justify-evenly gap-20'>
+                                        <td className='py-4 px-3'>{index + 1}</td>
+                                        <td className='py-4 px-3'>{element.problemName}</td>
+                                        <td className='py-4 px-3'>{element.difficulty}</td>
+                                    </tr>
+                                </Link>
+                            )
+                        })
+                    }
+                </tbody>
+            </table>
+        </div>
     )
 }
 

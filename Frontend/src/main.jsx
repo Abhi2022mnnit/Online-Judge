@@ -17,6 +17,8 @@ import Dashboard from './components/Dashboard.jsx'
 import ProblemCreatedByUser from './components/ProblemCreatedByUser.jsx'
 import ProblemSolvedByUser from './components/ProblemSolvedByUser'
 import MyProfile from './components/MyProfile.jsx'
+import UpdateProblemPage from './components/UpdateProblemPage.jsx'
+import IDE from './components/IDE.jsx'
 
 
 const router = createBrowserRouter(
@@ -29,7 +31,9 @@ const router = createBrowserRouter(
       <Route path='/problemList' element={<ProblemList />} />
       <Route path='/createProblem' element={<CreateProblem />} />
       <Route path='/problems/problem/:problemId' element={<ProblemPage />} />
+      <Route path='/problems/updateProblem/:problemId' element={<UpdateProblemPage />} />
       <Route path='/problems/addTestCase' element={<AddTestCases />} />
+      <Route path='/ide' element={<IDE />} />
 
       <Route element={<Dashboard />}>
         <Route path='/dashboard/profile' element={<MyProfile />} />
