@@ -15,7 +15,7 @@ function Signup() {
     firstName: '',
     lastName: '',
     emailAddress: '',
-    accountType: '',
+    accountType: 'Coder',
     password: '',
     confirmPassword: ''
   })
@@ -60,9 +60,9 @@ function Signup() {
         <input type='text' placeholder='Username' name='emailAddress' value={userData.emailAddress} onChange={textboxchange} />
         <br /><br />
 
-        <label> Account Type </label>
+        {/* <label> Account Type </label>
         <input type='text' placeholder='Username' name='accountType' value={userData.accountType} onChange={textboxchange} />
-        <br /><br />
+        <br /><br /> */}
 
         <label> Password </label>
         <input type='text' placeholder='Password' name='password' value={userData.password} onChange={textboxchange} />

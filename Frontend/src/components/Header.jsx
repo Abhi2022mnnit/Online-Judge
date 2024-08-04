@@ -40,35 +40,40 @@ function Header() {
                         </div>)
                     }
 
-                    <Link
-                        to="/ide"
-                        className="bg-gray-600 text-white m-2 rounded-lg p-2 mx-4 hover:bg-gray-700"
-                    >
-                        Code
-                    </Link>
 
-                    {token !== null &&
+                    {token !== null && user.accountType === "Admin" &&
 
                         (<div className="flex flex-row items-center gap-2">
                             <Link
                                 to="/createProblem"
-                                className="bg-red-600 text-white  m-2 rounded-lg p-2 mx-4 hover:bg-red-700"
+                                className="bg-red-600 text-white  m-2 rounded-lg p-2 hover:bg-red-700"
                             >
                                 Create Problem
                             </Link>
+                        </div>)
+                    }
+
+                    {token !== null && (
+                        <div className="mr-0">
+                            <Link
+                                to="/ide"
+                                className="bg-gray-600 text-white m-2 rounded-lg p-2 hover:bg-gray-700"
+                            >
+                                Code
+                            </Link>
+
                             <Link
                                 to="/problemList"
-                                className="bg-gray-600 text-white m-2 rounded-lg p-2 mx-4 hover:bg-gray-700"
+                                className="bg-gray-600 text-white m-2 rounded-lg p-2 hover:bg-gray-700"
                             >
                                 Practice
                             </Link>
-                            <button type="button" onClick={gotoProfile}>
-                                <img src={user.image} width={35} height={35} className='rounded-full items-center' />
-                            </button>
-                        </div>
-                        )
+                        </div>)
                     }
 
+                    <button type="button" onClick={gotoProfile}>
+                        <img src={user.image} width={35} height={35} className='rounded-full items-center' />
+                    </button>
                 </div>
             </nav>
         </header>

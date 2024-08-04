@@ -5,7 +5,8 @@ const initialState = {
     myToken: localStorage.getItem("Token") ? JSON.parse(localStorage.getItem("Token")) : null,
     myUser: localStorage.getItem("User") ? JSON.parse(localStorage.getItem("User")) : {},
     step : 1,
-    problem : localStorage.getItem("Problem") ? JSON.parse(localStorage.getItem("Problem")) : {}
+    problem : localStorage.getItem("Problem") ? JSON.parse(localStorage.getItem("Problem")) : {},
+    edit : false
 }
 
 export const SignupSlice = createSlice({
@@ -26,9 +27,12 @@ export const SignupSlice = createSlice({
         },
         setProblem : (state, action) => {
             state.problem = action.payload;
+        },
+        setEdit : (state, action) => {
+            state.edit = action.payload;
         }
     }
 })
 
-export const { addUser, setUser, setToken, setStep, setProblem } = SignupSlice.actions;
+export const { addUser, setUser, setToken, setStep, setProblem, setEdit } = SignupSlice.actions;
 export default SignupSlice.reducer;

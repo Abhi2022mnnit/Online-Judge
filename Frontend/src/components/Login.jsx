@@ -22,11 +22,14 @@ function Login() {
 
 
     try {
-      const promise = await apiConnect("POST", "http://localhost:4000/api/phase1/auth/signin", { emailAddress, password });
+      const promise = await apiConnect("POST", "http://localhost:8000/api/phase1/auth/signin", { emailAddress, password });
+
+      console.log(promise);
 
       if (!promise.data.success) {
         throw new error("Error in Login API ");
       }
+
 
       const userData = promise.data.existUser;
       const userToken = promise.data.token;

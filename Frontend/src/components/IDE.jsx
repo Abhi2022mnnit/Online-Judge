@@ -23,7 +23,7 @@ function ide() {
         console.log(input)
         if(!input){
             try{
-                const promise = await apiConnect("POST", "http://localhost:4000/api/phase1/auth/runCodeByIDEWithoutIp", {lan :'cpp', code});
+                const promise = await apiConnect("POST", "http://localhost:8000/api/phase1/auth/runCodeByIDEWithoutIp", {lan :'cpp', code});
                 if(!promise.data.success){
                     throw new Error("Fail to run Code");
                 }
@@ -35,7 +35,7 @@ function ide() {
         }
         else{
             try{
-                const promise = await apiConnect("POST", "http://localhost:4000/api/phase1/auth/runCodeByIDEWithIp", {lan :'cpp', code, input});
+                const promise = await apiConnect("POST", "http://localhost:8000/api/phase1/auth/runCodeByIDEWithIp", {lan :'cpp', code, input});
                 if(!promise.data.success){
                     throw new Error("Fail to run Code");
                 }

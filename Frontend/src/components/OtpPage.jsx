@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useSelector } from 'react-redux'
 import apiConnect from '../apiServices/apiConnect';
 import OtpInput from "react-otp-input";
-import {useNavigate} from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 
 
 function OtpPage() {
@@ -27,18 +27,20 @@ function OtpPage() {
 
         console.log(body);
         try {
-            await apiConnect("POST", "http://localhost:4000/api/phase1/auth/signup", body)
+            await apiConnect("POST", "http://localhost:8000/api/phase1/auth/signup", body)
                 .then(
-                    res => console.log(res.data)
+                    res => {
+                        console.log(res.data)
+                        loginNavigate('/login');
+                    }
                 )
-            
-            loginNavigate('/login');
+
 
         } catch (error) {
             console.log("Error in sending OTP API to server" + error.message);
         }
 
-             
+
 
     }
 
