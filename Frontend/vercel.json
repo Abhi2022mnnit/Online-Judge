@@ -5,6 +5,6 @@
       "destination" : "/"
    }] ,
 
-   "devCommand": "vite build"
+   "buildCommand": "vite build"
    
 }
