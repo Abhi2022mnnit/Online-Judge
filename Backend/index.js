@@ -8,7 +8,7 @@ require('dotenv').config();
 // --------------------------- Middlewares ------------------------------------------
 const app = express()
 app.use(cors({
-    origin: 'http://localhost:5173',
+    origin: 'https://online-judge-kappa.vercel.app/',
     credentials: true
 }
 ));

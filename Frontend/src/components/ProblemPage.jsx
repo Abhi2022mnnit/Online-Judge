@@ -36,7 +36,7 @@ cout<<a<<b;
     useEffect(() => {
         const fetchProblem = async () => {
             try {
-                const promise = await apiConnect("POST", "http://localhost:8000/api/phase1/auth/getProblemById", { problemId });
+                const promise = await apiConnect("POST", "https://online-judge-jq9r.onrender.com/api/phase1/auth/getProblemById", { problemId });
                 // console.log(promise);
 
                 if (!promise.data.success) {
@@ -86,7 +86,7 @@ cout<<a<<b;
         }
 
         try {
-            const { data } = await apiConnect("POST", 'http://localhost:8000/api/phase1/auth/run', payload);
+            const { data } = await apiConnect("POST", 'https://online-judge-jq9r.onrender.com/api/phase1/auth/run', payload);
             console.log(data);
             setOutput(data.output);
             setExpectedOutput(data.output2);
@@ -103,7 +103,7 @@ cout<<a<<b;
         console.log(user._id);
 
         try {
-            const promise = await apiConnect("POST", 'http://localhost:8000/api/phase1/auth/submitCode', { lan: 'cpp', code, problemId: problemId, userId : user._id });
+            const promise = await apiConnect("POST", 'https://online-judge-jq9r.onrender.com/api/phase1/auth/submitCode', { lan: 'cpp', code, problemId: problemId, userId : user._id });
             if (promise.data.success) {
                 setverdictValue('Accepted');
                 notifySuccess("Accepted");
