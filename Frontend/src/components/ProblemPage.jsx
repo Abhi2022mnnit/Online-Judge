@@ -23,14 +23,16 @@ function ProblemPage() {
     const [output, setOutput] = useState('');
     const [expectedOutput, setExpectedOutput] = useState('');
     const [verdictValue, setverdictValue] = useState('');
-    const [code, setCode] = useState(` #include <iostream>
-using namespace std; 
-  int main() { 
-cout<<"Hello WOrld"<<endl;
-int a,b;
-cin>>a>>b;
-cout<<a<<b;
-      return 0; }`);
+    const [code, setCode] = useState(
+    `#include <iostream>
+    using namespace std; 
+    int main() { 
+        cout<<"Hello WOrld"<<endl;
+        int a,b;
+        cin>>a>>b;
+        cout<<a<<b;
+    return 0; 
+    }`);
 
 
     useEffect(() => {
