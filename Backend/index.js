@@ -8,7 +8,7 @@ require('dotenv').config();
 // --------------------------- Middlewares ------------------------------------------
 const app = express()
 const corsOptions ={
-    origin:'https://online-judge-kappa.vercel.app', 
+    origin:'https://online-judge-j6f7xlnzd-abhisheks-projects-ef1e297e.vercel.app', 
     credentials:true,            //access-control-allow-credentials:true
     optionSuccessStatus:200
 }
