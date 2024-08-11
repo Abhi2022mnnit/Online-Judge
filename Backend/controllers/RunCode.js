@@ -3,7 +3,9 @@ const { generateCodeFile } = require('./generateCodeFile');
 const { generateInputFile } = require('./generateInputFile');
 const problemSchema = require('../models/ProblemSchema');
 const userSchema = require('../models/UserSchema');
-
+const {generateCFile, generateCFileWithoutIp} = require('./generateCFile');
+const {generatePyFile, generatePyFileWithoutIp} = require('./generatePyFile');
+const mongoose = require('mongoose');
 exports.runCode = async (req, res) => {
     const { lan, code, inputs, problemId } = req.body;
     // console.log(lan, code, inputs, problemId);
@@ -16,30 +18,32 @@ exports.runCode = async (req, res) => {
         const inputFile = await generateInputFile(inputs);
 
         const filePath = await generateCodeFile(lan, code);
-        const output = await generateCppFile(filePath, inputFile);
+        // const output = await generateCppFile(filePath, inputFile);
+        // console.log(output)
 
         const problem = await problemSchema.findById({ _id: problemId }).populate("testCases").exec();
         const actualCode = problem.code;
 
-        const filePath2 = await generateCodeFile(lan, actualCode);
+        const filePath2 = await generateCodeFile('cpp', actualCode);
         const output2 = await generateCppFile(filePath2, inputFile);
+
+        if (lan === "cpp" || lan==="c") {
+            var output = await generateCppFile(filePath, inputFile);
+        }
+
+        else if (lan === "java") {
+            var output = await generateJavaFile(filePath, inputFile);
+        }
+        else if (lan === "py") {
+            var output = await generatePythonFile(filePath, inputFile);
+        }
+        else if (lan === "js") {
+            var output = await generateJavaScriptFile(filePath, inputFile);
+        }
 
         if (output !== output2) {
             return res.status(200).json({ "success": false, output, output2, Verdict: "Failed" });
         }
-
-        // if (lan === "cpp") {
-        // }
-
-        // else if (lan === "java") {
-        //     var output = await generateJavaFile(filePath, inputFile);
-        // }
-        // else if (lan === "py") {
-        //     var output = await generatePythonFile(filePath, inputFile);
-        // }
-        // else if (lan === "js") {
-        //     var output = await generateJavaScriptFile(filePath, inputFile);
-        // }
 
         return res.status(200).json({ "success": true, output, output2, Verdict: "Accepted" });
     } catch (error) {
@@ -81,16 +85,27 @@ exports.submitCode = async (req, res) => {
         }
 
         console.log("entry in User");
-        const user = await userSchema.findByIdAndUpdate({_id: userId},
-            {
-                $push : {
-                    problemsSolved : problemId,
+        const user = await userSchema.findById({_id: userId});
+        const isIdpresent = user.problemsSolved.find((Id) => {
+            console.log(typeof Id);
+            console.log(typeof problemId);
+            console.log(JSON.stringify(Id));
+            console.log(JSON.stringify(problemId));
+            JSON.stringify(Id) == JSON.stringify(problemId)});
+        console.log("ID: " + isIdpresent);
+
+        if(!isIdpresent){
+            const userDetails = await userSchema.findByIdAndUpdate({_id: userId},
+                {
+                    $push : {
+                        problemsSolved : problemId,
+                    }
+                },
+                {
+                    new : true
                 }
-            },
-            {
-                new : true
-            }
-        );
+            );
+        }
 
         return res.status(200).json({ "success": true, Verdict: "Accepted" });
 
@@ -105,7 +120,13 @@ exports.runCodeByIDEWithoutIp = async (req, res) => {
 
     try {
         const filePath = await generateCodeFile(lan, code);
-        const output = await generateCppFileWithoutIp(filePath);
+
+        if(lan === "cpp"){
+            var output = await generateCppFileWithoutIp(filePath);
+        }
+        else if(lan === "py"){
+            var output = await generatePyFileWithoutIp(filePath);
+        }
         return res.status(200).json({ "success": true, output});
 
     } catch (error) {
@@ -119,7 +140,18 @@ exports.runCodeByIDEWithIp = async (req, res) => {
     try {
         const filePath = await generateCodeFile(lan, code);
         const inputFile = await generateInputFile(input);
-        const output = await generateCppFile(filePath, inputFile);
+
+        if(lan === "c"){
+            var output = await generateCFile(filePath, inputFile);
+            console.log("Lan is C, need to be install")
+        }
+        else if(lan === "cpp"){
+            var output = await generateCppFile(filePath, inputFile);
+        }
+        else if(lan === "py"){
+            // const output = await generateCppFile(filePath, inputFile);
+            console.log("Lan is Python, need to be install")
+        }
         return res.status(200).json({ "success": true, output});
 
     } catch (error) {

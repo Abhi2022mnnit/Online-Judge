@@ -1,2 +1,5 @@
 node_modules
 .env
+./controllers/codes
+./controllers/inputs
+./controllers/outputs

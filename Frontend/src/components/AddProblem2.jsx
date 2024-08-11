@@ -50,9 +50,15 @@ function AddProblem2() {
 
     const addConstraints = (newConstraints) => {
         if (newConstraints) {
+<<<<<<< HEAD
             console.log("ADFfad");
             constraints.push(newConstraints);
             setNewConstraints('');
+=======
+            // console.log("ADFfad");
+            constraints.push(newConstraints);
+            // setNewConstraints('');
+>>>>>>> 5.0
             console.log(constraints);
             notifySuccess('Constraint Added');      // toaster
         }
@@ -85,10 +91,17 @@ function AddProblem2() {
         else {
             try {
                 console.log(data);
+<<<<<<< HEAD
                 const promise = await apiConnect("POST", "https://online-judge-jq9r.onrender.com/api/phase1/auth/addProblem", { ...data, constraints: constraints });
 
                 if (!promise.data.success) {
                     throw new error("Error in sending Problem Api to server");
+=======
+                const promise = await apiConnect("POST", "https://online-judge-jq9r.onrender.com/phase1/auth/addProblem", { ...data, constraints: constraints });
+
+                if (!promise.data.success) {
+                    throw new Error("Error in sending Problem Api to server");
+>>>>>>> 5.0
                 }
 
                 notifySuccess('Submitted');         //toaster
@@ -107,6 +120,7 @@ function AddProblem2() {
         <div className='flex-col item-center justify m-4'>
             <form onSubmit={handleSubmit(submitHandler)}>
                 <label>Problem Name</label>
+<<<<<<< HEAD
                 <input type="text" className="inputTag" name='problemName' {...register("problemName", { register: true })} />
 
                 <label>Problem Difficuty</label>
@@ -117,11 +131,24 @@ function AddProblem2() {
 
                 <label>Problem constraints</label>
                 <input type="text" className="inputTag" name='newConstraints' value={newConstraints} onChange={(e) => setNewConstraints(e.target.value)}></input>
+=======
+                <input type="text" className="inputTag" name='problemName' {...register("problemName", { register: true })} required/>
+
+                <label>Problem Difficuty</label>
+                <input type="text" className="inputTag" name='difficulty' {...register("difficulty", { register: true })} required/>
+
+                <label>Problem Description</label>
+                <input type="text" className="inputTag" name='problemDescription' {...register("problemDescription", { register: true })} required/>
+
+                <label>Problem constraints</label>
+                <input type="text" className="inputTag" name='newConstraints' value={newConstraints} onChange={(e) => setNewConstraints(e.target.value)} required></input>
+>>>>>>> 5.0
                 <button type="button" onClick={() => addConstraints(newConstraints)}
                     className="bg-red-600 text-white m-2 rounded-lg p-2 mx-4 hover:bg-red-700">Add</button>
                 <br /><br />
 
                 <label>Problem inputDescription</label>
+<<<<<<< HEAD
                 <input type="text" className="inputTag" name='inputDescription' {...register("inputDescription", { register: true })} />
 
                 <label>Problem outputDescription</label>
@@ -129,6 +156,15 @@ function AddProblem2() {
 
                 <label>Problem Code</label>
                 <input type="text" className="inputTag" name='code' {...register("code", { register: true })} />
+=======
+                <input type="text" className="inputTag" name='inputDescription' {...register("inputDescription", { register: true })} required/>
+
+                <label>Problem outputDescription</label>
+                <input type="text" className="inputTag" name='outputDescription' {...register("outputDescription", { register: true })} required/>
+
+                <label>Problem Code</label>
+                <input type="text" className="inputTag" name='code' {...register("code", { register: true })} required/>
+>>>>>>> 5.0
                 <button type='Submit' className="bg-red-600 text-white m-2 rounded-lg p-2 mx-4 hover:bg-red-700"
                 >Submit
                 </button>

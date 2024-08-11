@@ -19,12 +19,14 @@ import ProblemSolvedByUser from './components/ProblemSolvedByUser'
 import MyProfile from './components/MyProfile.jsx'
 import UpdateProblemPage from './components/UpdateProblemPage.jsx'
 import IDE from './components/IDE.jsx'
+import Home from './components/Home.jsx'
 
 
 const router = createBrowserRouter(
   createRoutesFromElements(
 
     <Route path='/' element={<Layout />}>
+      <Route path='/' element={<Home />} />
       <Route path='/login' element={<Login />} />
       <Route path='/signup' element={<Signup />} />
       <Route path='/otpPage' element={<OtpPage />} />

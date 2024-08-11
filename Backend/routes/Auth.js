@@ -18,7 +18,7 @@ router.post('/sendotp',sendOtp);
 router.post('/signup',signUp);
 router.post('/signin',signIn);
 router.get('/problemList', problemList);
-router.post('/addProblem', auth, isAdmin, addProblem);
+router.post('/addProblem',auth, isAdmin, addProblem);
 router.post('/getProblemById', getProblemById);
 router.post('/addTestCase', addTestCase);
 router.post('/run', runCode);
