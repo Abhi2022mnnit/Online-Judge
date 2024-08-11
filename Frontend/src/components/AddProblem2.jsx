@@ -114,7 +114,8 @@ function AddProblem2() {
 
                 <label>Problem Description</label>
                 <input type="text" className="inputTag" name='problemDescription' {...register("problemDescription", { register: true })} required/>
-
+                <br/><br/>
+                
                 <label>Problem constraints</label>
                 <input type="text" className="inputTag" name='newConstraints' value={newConstraints} onChange={(e) => setNewConstraints(e.target.value)} required></input>
                 <button type="button" onClick={() => addConstraints(newConstraints)}
