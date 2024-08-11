@@ -54,7 +54,7 @@ function Header() {
                     }
 
                     {token !== null && (
-                        <div className="mr-0">
+                        <div className="flex flex-row gap-2 items-center mr-0">
                             <Link
                                 to="/ide"
                                 className="bg-gray-600 text-white m-2 rounded-lg p-2 hover:bg-gray-700"
