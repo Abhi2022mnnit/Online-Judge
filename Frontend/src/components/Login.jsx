@@ -100,9 +100,9 @@ function Login() {
           <div>
             <div class="flex items-center justify-between">
               <label for="password" class="block text-sm font-medium leading-6 text-gray-900">Password</label>
-              <div class="text-sm">
+              {/* <div class="text-sm">
                 <a href="#" class="font-semibold text-red-600 hover:text-red-500">Forgot password?</a>
-              </div>
+              </div> */}
             </div>
             <div class="mt-2">
               <input id="password" name="password" type="password" value={password}

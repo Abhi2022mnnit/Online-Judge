@@ -40,11 +40,14 @@ function ProblemCreatedByUser() {
                 <tbody>
 
                     {allProblems.map((element, index) => {
+                        const fullName = element.problemName;
+                        let shortName = fullName.substr(0, 20);
+                        shortName += "...";
                         return (
                             <Link to={`/problems/updateProblem/${element._id}`}>
                                 <tr className='border-t-2 p-2 flex flex-row justify-evenly gap-20'>
                                     <td className='py-4 px-3'>{index + 1}</td>
-                                    <td className='py-4 px-3'>{element.problemName}</td>
+                                    <td className='py-4 px-3'>{fullName.length <= 15 ? fullName : shortName}</td>
                                     <td className='py-4 px-3'>{element.difficulty}</td>
                                 </tr>
                             </Link>

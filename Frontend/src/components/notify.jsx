@@ -34,6 +34,13 @@ export const notifyError = (message) =>
     progress: undefined,
   });
 
+
+export const notifyLoader = (promise) => {
+  toast.promise(promise, {
+    pending: "Loading..."
+  });
+}
+
 export const NotifyContainer = () => (
   <ToastContainer
     position='top-right'

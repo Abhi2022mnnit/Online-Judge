@@ -20,7 +20,7 @@ exports.getProblemById = async(req,res) => {
     try{
         const {problemId} = req.body;
         console.log(problemId);
-        const getProblem = await problemList.findById(problemId);
+        const getProblem = await problemList.findById(problemId).populate('testCases').exec();
         if(!getProblem){
             throw new Error("Unable to fetch problem by Id from database");
         }
@@ -38,6 +38,8 @@ exports.addProblem = async(req,res) => {
     try{
         const {problemName, difficulty, problemDescription, constraints, inputDescription, outputDescription, code} = req.body;
         const coderId = req.user.id;
+
+        console.log("adfaffwdf" + req.body);
 
         if(!problemName || !difficulty || !problemDescription || !constraints || !inputDescription || !outputDescription || !code){
             console.log(problemName, difficulty, problemDescription, constraints, inputDescription, outputDescription, sampleOutput, sampleOutput, code);
@@ -98,4 +100,23 @@ exports.getCreatedProblemById = async(req,res) => {
     }
 }
 
+exports.editProblem = async (req, res) => {
+
+    try {
+        const { problemName, difficulty, problemDescription, inputDescription, outputDescription, code, constraints, problemId } = req.body;
+        const problemDetails = await ProblemSchema.findByIdAndUpdate({ _id: problemId }, {
+            problemName: problemName,
+            difficulty: difficulty,
+            problemDescription: problemDescription,
+            constraints: constraints,
+            inputDescription: inputDescription,
+            outputDescription: outputDescription,
+            code: code
+        }).populate("testCases").exec();
+
+        return res.status(200).json({ "success": true, problemDetails });
+    } catch (error) {
+        return res.status(500).json({ "success": false, message: error.message });
+    }
+}
 
