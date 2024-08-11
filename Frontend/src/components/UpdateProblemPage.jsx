@@ -24,7 +24,7 @@ function updateProblemPage() {
         const fetchPrevProblem = async () => {
             try {
                 console.log(problemId);
-                const promise = await apiConnect("POST", "http://localhost:4000/api/phase1/auth/getCreatedProblemById", { problemId });
+                const promise = await apiConnect("POST", "https://online-judge-jq9r.onrender.com/api/phase1/auth/getCreatedProblemById", { problemId });
                 if (!promise.data.success) {
                     throw new Error("No problems Found in database!!!");
                 }

@@ -65,7 +65,7 @@ function AddProblem2() {
             try {
                 const prevConst = problem.constraints;
                 prevConst.concat(constraints);
-                const promise = await apiConnect("POST", "http://localhost:4000/api/phase1/auth/editProblem", {...data, constraints: prevConst, problemId: problem._id });
+                const promise = await apiConnect("POST", "https://online-judge-jq9r.onrender.com/api/phase1/auth/editProblem", {...data, constraints: prevConst, problemId: problem._id });
 
                 if (!promise.data.success) {
                     throw new error("Error in sending Problem Api to server");
@@ -85,7 +85,7 @@ function AddProblem2() {
         else {
             try {
                 console.log(data);
-                const promise = await apiConnect("POST", "http://localhost:4000/api/phase1/auth/addProblem", { ...data, constraints: constraints });
+                const promise = await apiConnect("POST", "https://online-judge-jq9r.onrender.com/phase1/auth/addProblem", { ...data, constraints: constraints });
 
                 if (!promise.data.success) {
                     throw new Error("Error in sending Problem Api to server");

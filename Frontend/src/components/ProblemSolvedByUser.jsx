@@ -12,7 +12,7 @@ function ProblemSolvedByUser() {
     useEffect(() => {
         const fetchUser = async () => {
             try {
-                const promise = await apiConnect("POST", "http://localhost:4000/api/phase1/auth/getUserById", { userId: myUser._id });
+                const promise = await apiConnect("POST", "https://online-judge-jq9r.onrender.com/api/phase1/auth/getUserById", { userId: myUser._id });
                 // console.log(promise.data.user);
 
                 if (!promise.data.success) {

@@ -10,7 +10,7 @@ function ProblemList() {
     useEffect(() => {
         const fetchallprobs = async () => {
             try {
-                const promise = await apiConnect("GET", "http://localhost:4000/api/phase1/auth/problemList");
+                const promise = await apiConnect("GET", "https://online-judge-jq9r.onrender.com/api/phase1/auth/problemList");
                 console.log(promise.data.allProblems);
 
                 if (!promise.data.success) {

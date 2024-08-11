@@ -27,7 +27,7 @@ function OtpPage() {
 
         console.log(body);
         try {
-            await apiConnect("POST", "http://localhost:4000/api/phase1/auth/signup", body)
+            await apiConnect("POST", "https://online-judge-jq9r.onrender.com/api/phase1/auth/signup", body)
                 .then(
                     res => console.log(res.data)
                 )

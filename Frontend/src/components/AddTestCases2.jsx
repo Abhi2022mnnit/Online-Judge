@@ -30,7 +30,7 @@ function AddTestCases2() {
 
     const handleAddTestCase = async () => {
         try {
-            const promise = await apiConnect("POST", "http://localhost:4000/api/phase1/auth/addTestCase", { ...testCase, problemId: problem._id });
+            const promise = await apiConnect("POST", "https://online-judge-jq9r.onrender.com/api/phase1/auth/addTestCase", { ...testCase, problemId: problem._id });
 
             if (!promise.data.success) {
                 throw new error("Error in sending Problem Api to server");
@@ -56,7 +56,7 @@ function AddTestCases2() {
 
     const removeTestCase = async (element) => {
         try {
-            const promise = await apiConnect("POST", "http://localhost:4000/api/phase1/auth/removeTestCase", element);
+            const promise = await apiConnect("POST", "https://online-judge-jq9r.onrender.com/api/phase1/auth/removeTestCase", element);
 
             if (!promise.data.success) {
                 throw new error("Error in sending Problem Api to server");
