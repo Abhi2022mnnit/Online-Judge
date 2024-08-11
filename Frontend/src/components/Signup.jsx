@@ -48,11 +48,11 @@ function Signup() {
         <input type='text' placeholder='Username' name='userName' value={userData.userName} onChange={textboxchange} required/>
         <br /><br />
 
-        <label> firstName </label>
+        <label> FirstName </label>
         <input type='text' placeholder='FirstName' name='firstName' value={userData.firstName} onChange={textboxchange} required/>
         <br /><br />
 
-        <label> lastName </label>
+        <label> LastName </label>
         <input type='text' placeholder='LastName' name='lastName' value={userData.lastName} onChange={textboxchange} required/>
         <br /><br />
 
@@ -65,11 +65,11 @@ function Signup() {
         <br /><br /> */}
 
         <label> Password </label>
-        <input type='text' placeholder='Password' name='password' value={userData.password} onChange={textboxchange} required/>
+        <input id="password" name="password" type="password" value={userData.password} onChange={textboxchange} required/>
         <br /><br />
 
-        <label> confirmPassword </label>
-        <input type='text' placeholder='Confirm Password' name='confirmPassword' value={userData.confirmPassword} onChange={textboxchange} required/>
+        <label> ConfirmPassword </label>
+        <input type='password' placeholder='Confirm Password' name='confirmPassword' value={userData.confirmPassword} onChange={textboxchange} required/>
         <br /><br />
 
       </form>
