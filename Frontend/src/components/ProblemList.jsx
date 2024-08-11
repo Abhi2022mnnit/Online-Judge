@@ -56,18 +56,6 @@ function ProblemList() {
 
                     {problems.map((element, index) => {
                         const fullName = element.problemName;
-<<<<<<< HEAD
-                        const shortName = fullName.substr(0,25);
-                        return (
-                            <Link to={`/problems/problem/${element._id}`}>
-                                <tr className='border-t-2 p-2 flex flex-row justify-evenly gap-20'>
-                                    <td className='py-4 px-3'>{index + 1}</td>
-                                    <td className='py-4 px-3'>{fullName.length <= 25 ? fullName : shortName}</td>
-                                    <td className='py-4 px-3'>{element.difficulty}</td>
-                                </tr>
-                            </Link>
-                        )
-=======
                         let shortName = fullName.substr(0, 20);
                         shortName += "...";
                         return tag === "All" || element.difficulty === tag ?
@@ -80,7 +68,6 @@ function ProblemList() {
                                     </tr>
                                 </Link>
                             ) : ""
->>>>>>> 5.0
                     })
                     }
 

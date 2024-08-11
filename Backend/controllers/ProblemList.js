@@ -20,13 +20,8 @@ exports.getProblemById = async (req, res) => {
     try {
         const { problemId } = req.body;
         console.log(problemId);
-<<<<<<< HEAD
-        const getProblem = await problemList.findById(problemId);
-        if (!getProblem) {
-=======
-        const getProblem = await problemList.findById(problemId).populate('testCases').exec();
+         const getProblem = await problemList.findById(problemId).populate('testCases').exec();
         if(!getProblem){
->>>>>>> 5.0
             throw new Error("Unable to fetch problem by Id from database");
         }
         // console.log(getProblem);
@@ -44,15 +39,9 @@ exports.addProblem = async (req, res) => {
         const { problemName, difficulty, problemDescription, constraints, inputDescription, outputDescription, code } = req.body;
         const coderId = req.user.id;
 
-<<<<<<< HEAD
         console.log(req.body);
 
         if (!problemName || !difficulty || !problemDescription || !constraints || !inputDescription || !outputDescription || !code) {
-=======
-        console.log("adfaffwdf" + req.body);
-
-        if(!problemName || !difficulty || !problemDescription || !constraints || !inputDescription || !outputDescription || !code){
->>>>>>> 5.0
             console.log(problemName, difficulty, problemDescription, constraints, inputDescription, outputDescription, sampleOutput, sampleOutput, code);
             return res.status(404).json({ "success": false, message: "Cannot fetch data from body" })
         }

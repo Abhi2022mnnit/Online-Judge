@@ -21,17 +21,10 @@ int main() {
 
     const handleRun = async () => {
         console.log(input)
-<<<<<<< HEAD
-        if(!input){
-            try{
-                const promise = await apiConnect("POST", "https://online-judge-jq9r.onrender.com/api/phase1/auth/runCodeByIDEWithoutIp", {lan :'cpp', code});
-                if(!promise.data.success){
-=======
         if (!input) {
             try {
                 const promise = await apiConnect("POST", "https://online-judge-jq9r.onrender.com/api/phase1/auth/runCodeByIDEWithoutIp", { lan: 'cpp', code });
                 if (!promise.data.success) {
->>>>>>> 5.0
                     throw new Error("Fail to run Code");
                 }
 
@@ -40,17 +33,10 @@ int main() {
                 console.log(error.message);
             }
         }
-<<<<<<< HEAD
-        else{
-            try{
-                const promise = await apiConnect("POST", "https://online-judge-jq9r.onrender.com/api/phase1/auth/runCodeByIDEWithIp", {lan :'cpp', code, input});
-                if(!promise.data.success){
-=======
         else {
             try {
                 const promise = await apiConnect("POST", "https://online-judge-jq9r.onrender.com/api/phase1/auth/runCodeByIDEWithIp", { lan, code, input });
                 if (!promise.data.success) {
->>>>>>> 5.0
                     throw new Error("Fail to run Code");
                 }
 

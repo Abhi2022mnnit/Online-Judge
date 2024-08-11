@@ -23,11 +23,6 @@ function Login() {
 
     try {
       const promise = await apiConnect("POST", "https://online-judge-jq9r.onrender.com/api/phase1/auth/signin", { emailAddress, password });
-<<<<<<< HEAD
-
-      console.log(promise);
-=======
->>>>>>> 5.0
 
       if (!promise.data.success) {
         throw new error("Error in Login API ");

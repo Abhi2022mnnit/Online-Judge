@@ -24,25 +24,12 @@ function ProblemPage() {
     const [output, setOutput] = useState('');
     const [expectedOutput, setExpectedOutput] = useState('');
     const [verdictValue, setverdictValue] = useState('');
-<<<<<<< HEAD
-    const [code, setCode] = useState(
-    `#include <iostream>
-    using namespace std; 
-    int main() { 
-        cout<<"Hello WOrld"<<endl;
-        int a,b;
-        cin>>a>>b;
-        cout<<a<<b;
-    return 0; 
-    }`);
-=======
     const [code, setCode] = useState(`#include <iostream>
 using namespace std; 
 int main() { 
     cout<<"Hello World"<<endl;
     return 0; 
 }`);
->>>>>>> 5.0
 
 
     useEffect(() => {
@@ -99,13 +86,6 @@ int main() {
         }
 
         try {
-<<<<<<< HEAD
-            const { data } = await apiConnect("POST", 'https://online-judge-jq9r.onrender.com/api/phase1/auth/run', payload);
-            console.log(data);
-            setOutput(data.output);
-            setExpectedOutput(data.output2);
-            setverdictValue(data.Verdict);
-=======
             const resolveAfter2Seconds = new Promise(resolve => setTimeout(resolve, 4000))
             notifyLoader(resolveAfter2Seconds);
 
@@ -117,7 +97,6 @@ int main() {
             setOutput(promise.data.output);
             setExpectedOutput(promise.data.output2);
             setverdictValue(promise.data.Verdict);
->>>>>>> 5.0
         } catch (error) {
             console.log(error.response);
         }
@@ -130,14 +109,10 @@ int main() {
         console.log(user._id);
 
         try {
-<<<<<<< HEAD
-            const promise = await apiConnect("POST", 'https://online-judge-jq9r.onrender.com/api/phase1/auth/submitCode', { lan: 'cpp', code, problemId: problemId, userId : user._id });
-=======
             const resolveAfter2Seconds = new Promise(resolve => setTimeout(resolve, 4000))
             notifyLoader(resolveAfter2Seconds);
 
             const promise = await apiConnect("POST", 'https://online-judge-jq9r.onrender.com/api/phase1/auth/submitCode', { lan: 'cpp', code, problemId: problemId, userId: user._id });
->>>>>>> 5.0
             if (promise.data.success) {
                 setverdictValue('Accepted');
                 notifySuccess("Accepted");
