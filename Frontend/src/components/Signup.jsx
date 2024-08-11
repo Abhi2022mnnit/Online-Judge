@@ -49,15 +49,15 @@ function Signup() {
         <br /><br />
 
         <label> firstName </label>
-        <input type='text' placeholder='Username' name='firstName' value={userData.firstName} onChange={textboxchange} required/>
+        <input type='text' placeholder='FirstName' name='firstName' value={userData.firstName} onChange={textboxchange} required/>
         <br /><br />
 
         <label> lastName </label>
-        <input type='text' placeholder='Username' name='lastName' value={userData.lastName} onChange={textboxchange} required/>
+        <input type='text' placeholder='LastName' name='lastName' value={userData.lastName} onChange={textboxchange} required/>
         <br /><br />
 
         <label> Email </label>
-        <input type='text' placeholder='Username' name='emailAddress' value={userData.emailAddress} onChange={textboxchange} required/>
+        <input type='text' placeholder='Email' name='emailAddress' value={userData.emailAddress} onChange={textboxchange} required/>
         <br /><br />
 
         {/* <label> Account Type </label>
@@ -69,7 +69,7 @@ function Signup() {
         <br /><br />
 
         <label> confirmPassword </label>
-        <input type='text' placeholder='Password' name='confirmPassword' value={userData.confirmPassword} onChange={textboxchange} required/>
+        <input type='text' placeholder='Confirm Password' name='confirmPassword' value={userData.confirmPassword} onChange={textboxchange} required/>
         <br /><br />
 
       </form>
