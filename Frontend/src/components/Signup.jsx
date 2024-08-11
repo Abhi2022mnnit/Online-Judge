@@ -45,19 +45,19 @@ function Signup() {
       <br /><br />
       <form>
         <label> Username </label>
-        <input type='text' placeholder='Username' name='userName' value={userData.userName} onChange={textboxchange} />
+        <input type='text' placeholder='Username' name='userName' value={userData.userName} onChange={textboxchange} required/>
         <br /><br />
 
         <label> firstName </label>
-        <input type='text' placeholder='Username' name='firstName' value={userData.firstName} onChange={textboxchange} />
+        <input type='text' placeholder='Username' name='firstName' value={userData.firstName} onChange={textboxchange} required/>
         <br /><br />
 
         <label> lastName </label>
-        <input type='text' placeholder='Username' name='lastName' value={userData.lastName} onChange={textboxchange} />
+        <input type='text' placeholder='Username' name='lastName' value={userData.lastName} onChange={textboxchange} required/>
         <br /><br />
 
         <label> Email </label>
-        <input type='text' placeholder='Username' name='emailAddress' value={userData.emailAddress} onChange={textboxchange} />
+        <input type='text' placeholder='Username' name='emailAddress' value={userData.emailAddress} onChange={textboxchange} required/>
         <br /><br />
 
         {/* <label> Account Type </label>
@@ -65,11 +65,11 @@ function Signup() {
         <br /><br /> */}
 
         <label> Password </label>
-        <input type='text' placeholder='Password' name='password' value={userData.password} onChange={textboxchange} />
+        <input type='text' placeholder='Password' name='password' value={userData.password} onChange={textboxchange} required/>
         <br /><br />
 
         <label> confirmPassword </label>
-        <input type='text' placeholder='Password' name='confirmPassword' value={userData.confirmPassword} onChange={textboxchange} />
+        <input type='text' placeholder='Password' name='confirmPassword' value={userData.confirmPassword} onChange={textboxchange} required/>
         <br /><br />
 
       </form>

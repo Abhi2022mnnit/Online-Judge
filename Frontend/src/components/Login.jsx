@@ -25,6 +25,7 @@ function Login() {
       const promise = await apiConnect("POST", "https://online-judge-jq9r.onrender.com/api/phase1/auth/signin", { emailAddress, password });
 
       if (!promise.data.success) {
+        alert("Credentials Not found!!!");
         throw new error("Error in Login API ");
       }
 
