@@ -68,12 +68,13 @@ function Header() {
                             >
                                 Practice
                             </Link>
+
+                            <button type="button" onClick={gotoProfile}>
+                                <img src={user.image} width={35} height={35} className='rounded-full items-center' />
+                            </button>
                         </div>)
                     }
 
-                    <button type="button" onClick={gotoProfile}>
-                        <img src={user.image} width={35} height={35} className='rounded-full items-center' />
-                    </button>
                 </div>
             </nav>
         </header>
