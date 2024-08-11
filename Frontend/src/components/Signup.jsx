@@ -15,7 +15,7 @@ function Signup() {
     firstName: '',
     lastName: '',
     emailAddress: '',
-    accountType: '',
+    accountType: 'Coder',
     password: '',
     confirmPassword: ''
   })
@@ -41,7 +41,7 @@ function Signup() {
 
   return (
     <>
-      <h1>SignUp</h1>
+      <h1 className='text-xl font-bold'>SignUp</h1>
       <br /><br />
       <form>
         <label> Username </label>
@@ -60,9 +60,9 @@ function Signup() {
         <input type='text' placeholder='Username' name='emailAddress' value={userData.emailAddress} onChange={textboxchange} />
         <br /><br />
 
-        <label> Account Type </label>
+        {/* <label> Account Type </label>
         <input type='text' placeholder='Username' name='accountType' value={userData.accountType} onChange={textboxchange} />
-        <br /><br />
+        <br /><br /> */}
 
         <label> Password </label>
         <input type='text' placeholder='Password' name='password' value={userData.password} onChange={textboxchange} />
@@ -73,7 +73,9 @@ function Signup() {
         <br /><br />
 
       </form>
-      <button type='submit' onClick={handleClick}> Submit </button>
+      <button type='submit' onClick={handleClick}
+        className="text-white bg-red-500 w-[30%] ml-72 items-center hover:bg-orange-800 focus:ring-4 focus:ring-orange-300 font-medium rounded-lg text-sm px-4 lg:px-5 py-2 lg:py-2.5 mr-2 focus:outline-none"
+      > Submit </button>
     </>
   )
 }
